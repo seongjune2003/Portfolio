@@ -1,0 +1,42 @@
+Unity Dotween
+[DOTween]
+
+오브젝트의 애니메이션 혹은 부드러운 값 변경 시 기존의 유니티 내에서 제공하는 애니메이션 기능이나 번거로운 스크립트 작성 대신 함수 몇개로 쉽고 다양한 모션을 줄 수 있는 간편한 API
+
+기존에 캐릭터 움직임의 부드러운 처리를 위해 Mathf.Lerp를 쓸 때는 직접 값을 계산해서 처리해야 했는데 두트윈을 사용하면 간단하게 처리할 수 있다.
+
+내가 직접 시퀀스를 만들 수도 있고 이미 만들어진 함수를 쓸 수도 있다. 두트윈의 코어는 시간다루기임. 코루틴으로는 시간 다루는 게 복잡한 동작으로 이어지면 사실상 관리가 불가능함. 그런 면에서 두트윈이 상위 호환인 것.
+
+일단 설치한 후에 3d 프로젝트 만들고 허공에 큐브 만들고 빈 스크립트 붙여 넣어주고 네임스페이스로 using DG.Tweening 추가하면 사용 준비는 끝. 그 다음에 Start()에 transform.DOMove(0,0,100); 해보면 두트윈이 어떤 건지 간단하게 이해할 수 있음.
+
+모든 DO 함수는 두번째 인자값으로 그 행위를 하는 지속시간 을 초 단위로 넣어줘야 함.
+
+DOMove(new Vector3( 0,0,100),3f);
+
+하면 지금 위치에서 0,0,100 까지 3초안에 이동한다! 임
+
+콜백함수
+
+모션의 특정 상황에서 원하는 함수를 호출하는 기능 (모션 시작, 종료 등)
+
+
+OnComplete(TweenCallback callback)
+OnKill(TweenCallback callback)
+OnPlay(TweenCallback callback)
+OnPause(TweenCallback callback)
+OnRewind(TweenCallback callback)
+OnStart(TweenCallback callback)
+OnStepComplete(TweenCallback callback)
+OnUpdate(TweenCallback callback)
+OnWaypointChange(TweenCallback callback)
+
+
+람다식을 사용하면
+
+myTween.OnComplete( ( ) ⇒ { } );   // 트윈 종료 후 실행
+
+이런 식으로 간편하게 사용 가능함.
+
+[https://blog.naver.com/PostView.nhn?blogId=hana100494&logNo=221320177107&parentCategoryNo=&categoryNo=9&viewDate=&isShowPopularPosts=true&from=search](https://blog.naver.com/PostView.nhn?blogId=hana100494&logNo=221320177107&parentCategoryNo=&categoryNo=9&viewDate=&isShowPopularPosts=true&from=search)
+
+[http://dotween.demigiant.com/documentation.php](http://dotween.demigiant.com/documentation.php)
