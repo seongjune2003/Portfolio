@@ -1,0 +1,67 @@
+Generic
+
+예를 들어서 단순한 사칙 연산을 하는데 쓰이는 클래스나 함수가 있다고 가정. 여기에서 데이터의 타입을 int, double과 같이 미리 정해주면 다른 데이터 타입은 계산을 못하게 됨. int타입 10개 double타입 1개 일 때. 이럴 때 double 타입 용도로 클래스를 하나 더 만드는 건 비효율적임. 이럴 때 사용하는 것이 제네릭이다.
+
+계산기 역할을 하는 Caculator 스크립트를 아래와 같이 만들었다.
+
+namespace GenTest
+{
+		class Calculator<T>
+			{
+					public T add(T a, T b)
+					{
+						dynamic da = a;
+						dynamic db = b;     // dynamic은 런타임시에 동적으로 사칙연산 실행 
+						T result = da + db;
+						return result;
+					}
+			}
+}
+
+만약 Calculator의 타입을 제한하고 싶으면
+
+class Calculator<T> where T : class     (class로만 한정)
+
+class Calculator<T> where T : struct    (value 타입 == int나 string 같은) 
+
+이런 식으로 변경하면 된다.
+
+이걸 이제 Program 스크립트에서 사용하면
+namespace GenTest
+{
+		class Program
+		{
+				static void Main(string[] args)
+				{
+						var iCal = new Calculator<int>();
+						var x = iCal.Add(1, 2);
+
+						var dCal = new Calculator<double>();
+						var y = dCal.Add(3.0, 3.15);
+
+						// .Net 환경에서도 쓰인다.
+						List<string> nameList = new List<string>();
+						nameList.Add("홍길동");
+
+						List<int> intList = new List<int>();
+						intList.Add(100);
+
+						Dictionary<string, int> scores = new Dictionary<string, int>();
+						scores.Add("홍길동", 100);
+				}
+		}
+}
+
+이런 식으로 제네릭은 일부 타입만 변경해서 쓸 수 있게 하는 것.
+
+추가 예시
+namespace GenTest
+{
+		class BaseClass{}
+
+		class MyClass<T, U>
+				Where T : BaseClass      // 타입T는 BaseClass이거나 그 파생 클래스이어야 하고
+				Where U : IComparable    // 타입U는 IComparable 인터페이스를 구현해야 한다는 뜻
+		{
+		}
+}
