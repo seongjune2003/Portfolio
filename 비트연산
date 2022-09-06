@@ -1,0 +1,169 @@
+int hp;
+short level = 100;
+long id;
+// 게임 id같은 경우에는 나중에 21억이 넘어가긴함. 이런경우 long을 쓴다.
+hp = 100;
+
+byte attack = 0;
+attack--;
+
+Console.WriteLine("Hello Number ! {0}", attack);
+
+10진수
+00 01 02 03 04 05 06 07 08 09 10
+
+2진수
+0b00 0b01 0b10 0b11 0b100
+0b10001111 = 0x8F  (4개씩 끊어서 읽음)
+
+16진수
+0~9 a b c d e f  (15까지)
+0x00 0x01 0x02 ... 0x0F
+0x10
+
+//0b11111111 = 255
+
+최상위 비트는 음수
+0000 0000
+-128 64 32 16 8 4 2 1
+
+ex) 0110 0110  = 102
+-102로 만드려면
+1) 1001 1001 숫자 뒤집어 주고
+2) 1만큼 더해줌
+1001 1010 = -102
+
+// bool
+					bool b;
+
+					b = true;
+					b = false;
+
+float는 4바이트
+					float f = 3.14f;
+double은 8바이트
+					double d = 3.14;
+
+// 2바이트
+					char c = '가';
+					string str = "Hello";
+
+					Console.WriteLine(str);
+
+// 1. 바구니 크기가 다른 경우
+            int a = 0x0FFFFFFF;
+            short b = (short)a;
+            // short가 2바이트니까 0xFFFF까지만 저장이 됨 (-1)
+            
+            // 2. 바구니 크기는 같긴 한데, 부호가 다른 경우
+            byte c = 255;
+            sbyte sb = (sbyte)c;
+            //underflow, overflow
+            //0xFF = 0b11111111 = -1
+            
+            //3. 소수
+            float f = 3.1414f;
+            double d = f;
+            
+            // f를 d로 불러와도 완전히 동일한 값이 나오진 않음. 유사한 값이 불려옴 3.14141109같은
+
+
+// ## 비트연산 **
+            uint num = 8;
+            
+            // << >> &(and) |(or) ^(xor) ~(not)
+            num = num >> 1;    
+            
+            // >> << 시프트 연산
+            // << 1  num 2진수를 왼쪽으로 1만큼 밀어버림. 2면 2만큼
+            
+            Console.WriteLine(num);
+            
+            // 끝자리는 - 부호인데 이걸 >>로 끌고오면 >>쪽 값 활성화되고 기존 -값도 활성화 되어있음. (부호가 딸려감) => 선언할때 u로 양수값으로 제한해야함.
+            // 예를 들어서 32비트에서 맨 끝값만 활성화 되있으면 -2,147,483,648 이고 해당 값에 >>를 해주면 이전 값인 1,073,741,824이 나와야하지만
+            // 변수타입에서 u로 해주지 않으면 두개를 더한 -1,073,741,824이 나옴. u로 해주면 1,073,741,824이 나오게 된다.
+            
+            // & and 연산자.    예를 들어 and로 묶인
+            // 1011110 이랑
+            // 0110110 이 있으면 둘 다 1인 것만 불이 들어오겠죠. 그래서
+            // 0010110 이 값이 나옴
+            
+            // | or 연산자면 하나라도 1이면 불이 들어온다.
+            // 1011110
+            // 0110110
+            // 1111110 이 되겠고
+            
+            // ~ not 연산자면 바꿔치기
+            // 1011000 이면
+            // 0100111 이 되겠지
+            
+            // ^ xor 배타적 논리합은  두 값이 다를 경우에 1이 된다.
+            // 10001110
+            // 01111110 이면
+            // 11110000 이 되겠지.
+
+            // 이제 좀 이해가 되네. 코딩할 때 조건주는 거 원리 자체가 0하고 1만으로도 이렇게 운영되는 거네. 그 메이플 클라 뜯었을 때 특정 조건일 때 1, 0 주는거
+            // 예를 들어서
+            // 1) 몬스터인가 플레이어인가? 1, 0
+            // 2) 보스몬스터인가? 일반몬스터인가? 1, 0
+            // 3) 근접공격인가? 원거리공격인가? 1, 0
+            // 4) 선공인가 후공인가? 1, 0
+            // 이제 보니까 이런 모든 조건을 1하고 0만으로 원하는 데로 다 줄 수 있겠구만.
+            // 32비트만 되도 왠만한 조건은 다 줄 수 있겠다.
+            
+            // ^ (xor)  암호학
+            int id = 123;
+            int key = 401;
+
+            int a = id ^ key;
+            int b = a ^ key;
+            
+            Console.WriteLine(a);
+            Console.WriteLine(b);
+            
+            // b는 다시 id 값으로 돌아온다.
+
+
+// 코드의 흐름 제어
+            
+            /*
+            int hp = 100;
+            bool isDead = (hp <= 0);
+
+            
+            if (isDead)
+            {
+                Console.WriteLine("You are Dead");
+            }
+            if (!isDead)
+            {
+                Console.WriteLine("You are Alive");
+            }
+            
+            
+            // 삼항연산자
+            Console.WriteLine(isDead ? "You are Dead" : "You are Alive");
+                        */
+
+
+            // switch   (switch case break)
+
+            int choice = 0;  // 0:가위, 1:바위, 2:보 3: 치트키
+            switch (choice)
+            {
+                case 0:
+                    Console.WriteLine("가위입니다.");
+                    break;
+                case 1:
+                    Console.WriteLine("바위입니다.");
+                    break;
+                case 2:
+                    Console.WriteLine("보입니다.");
+                    break;
+                case 3:
+                    Console.WriteLine("치트키입니다.");
+                    break;
+                default:
+                    Console.WriteLine("다 실패했습니다.");
+                    break;
+            }
